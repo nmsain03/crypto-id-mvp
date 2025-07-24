@@ -27,16 +27,6 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
-     </div>
-      <button
-        className="mt-2 text-xs text-blue-400 hover:underline"
-        onClick={() => navigator.clipboard.writeText(address)}
-      >
-        Copy address
-      </button>
-    </div>
-  );
-}
 
 export default function App() {
   const [wallets] = useState([
