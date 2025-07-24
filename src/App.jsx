@@ -9,7 +9,12 @@ function WalletCard({ chain, address }) {
           <p className="font-medium text-pink-400">{chain}</p>
           <p className="text-xs break-all text-gray-300">{address}</p>
         </div>
-        <QRCode value={address} style={{ height: "64px", width: "64px" }} fgColor="#fff" />
+        <QRCode
+          value={address}
+          style={{ height: "64px", width: "64px" }}
+          bgColor="#18181b"   // dunkler Hintergrund
+          fgColor="#ffffff"   // weiße QR-Linien
+/>
       </div>
       <button
         className="mt-2 text-xs text-blue-400 hover:underline"
