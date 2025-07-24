@@ -3,27 +3,32 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   return (
+    function WalletCard({ chain, address }) {
+  return (
     <div className="border border-gray-700 rounded-2xl p-4 shadow-sm bg-zinc-800 flex justify-between items-center h-32">
-  <div className="flex flex-col justify-center">
-    <p className="font-medium text-pink-400">{chain}</p>
-    <p className="text-xs break-all text-gray-300">{address}</p>
-    <button
-      className="mt-2 text-xs text-blue-400 hover:underline text-left"
-      onClick={() => navigator.clipboard.writeText(address)}
-    >
-      Copy address
-    </button>
-  </div>
+      <div className="flex flex-col justify-center">
+        <p className="font-medium text-pink-400">{chain}</p>
+        <p className="text-xs break-all text-gray-300">{address}</p>
+        <button
+          className="mt-2 text-xs text-blue-400 hover:underline text-left"
+          onClick={() => navigator.clipboard.writeText(address)}
+        >
+          Copy address
+        </button>
+      </div>
 
-  <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20">
-    <QRCode
-      value={address}
-      style={{ height: "64px", width: "64px" }}
-      bgColor="#000000"
-      fgColor="#ffffff"
-    />
-  </div>
-</div>
+      <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20">
+        <QRCode
+          value={address}
+          style={{ height: "64px", width: "64px" }}
+          bgColor="#000000"
+          fgColor="#ffffff"
+        />
+      </div>
+    </div>
+  );
+}
+
       <button
         className="mt-2 text-xs text-blue-400 hover:underline"
         onClick={() => navigator.clipboard.writeText(address)}
