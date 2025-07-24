@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-white text-gray-900 p-4;
-  font-family: 'Inter', sans-serif; /* oder deine Wunschschrift */
+  @apply bg-zinc-900 text-gray-100 p-4;
+  font-family: 'Inter', sans-serif;
 }
 
 img {
