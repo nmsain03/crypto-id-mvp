@@ -3,19 +3,16 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm w-full">
+    <div className="border border-gray-700 rounded-2xl p-4 shadow-sm bg-zinc-800">
       <div className="flex justify-between items-center">
         <div>
-          <p className="font-medium text-pink-600">{chain}</p>
-          <p className="text-xs break-all text-gray-600">{address}</p>
+          <p className="font-medium text-pink-400">{chain}</p>
+          <p className="text-xs break-all text-gray-300">{address}</p>
         </div>
-        <QRCode
-          value={address}
-          style={{ height: "64px", width: "64px" }}
-        />
+        <QRCode value={address} style={{ height: "64px", width: "64px" }} fgColor="#fff" />
       </div>
       <button
-        className="mt-2 text-xs text-blue-600 hover:underline"
+        className="mt-2 text-xs text-blue-400 hover:underline"
         onClick={() => navigator.clipboard.writeText(address)}
       >
         Copy address
@@ -32,26 +29,26 @@ export default function App() {
   ]);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col items-center px-4 py-8 text-gray-900 font-sans">
-      <img
-        src="https://placehold.co/100x100"
-        alt="Profile"
-        className="rounded-full border border-gray-300 mt-6"
-      />
-      <h1 className="text-2xl font-semibold mt-2">@Polina</h1>
-      <p className="text-sm text-gray-500 text-center mt-1">
-        The Real Pink | Accepting crypto donations 💸
-      </p>
-
-      <div className="w-full max-w-md space-y-4 mt-6">
-        {wallets.map((wallet) => (
-          <WalletCard key={wallet.chain} {...wallet} />
-        ))}
+    <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
+      <div className="w-full max-w-md flex flex-col items-center gap-4">
+        <img
+          src="https://placehold.co/100x100"
+          alt="Profile"
+          className="rounded-full border border-gray-500"
+        />
+        <h1 className="text-2xl font-semibold text-white">@polina</h1>
+        <p className="text-sm text-gray-400 text-center">
+          The Real Pink | Accepting crypto donations 💸
+        </p>
+        <div className="w-full space-y-4 mt-4">
+          {wallets.map((w) => (
+            <WalletCard key={w.chain} {...w} />
+          ))}
+        </div>
+        <p className="mt-8 text-center text-xs text-gray-500">
+          Always double-check the URL. This is my only crypto profile.
+        </p>
       </div>
-
-      <p className="mt-10 text-center text-xs text-gray-400 px-6">
-        Always double-check the URL. This is my only crypto profile.
-      </p>
     </div>
   );
 }
