@@ -5,7 +5,7 @@ function WalletCard({ chain, address }) {
   return (
    <div className="border border-[#fdf6ee] rounded-2xl p-4 shadow-sm bg-zinc-800 flex justify-between items-center h-32">
       <div className="flex flex-col justify-center">
-        <p className="font-medium text-pink-400">{chain}</p>
+        <p className="font-medium text-[#F24405]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
           className="mt-2 text-xs text-blue-400 hover:underline text-left"
