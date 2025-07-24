@@ -9,7 +9,7 @@ function WalletCard({ chain, address }) {
           <p className="font-medium text-pink-400">{chain}</p>
           <p className="text-xs break-all text-gray-300">{address}</p>
         </div>
-        <div className="bg-black p-2 rounded-md">
+        <div className="flex items-center justify-center h-20 w-20 bg-black p-2 rounded-md">
           <QRCode
             value={address}
             style={{ height: "64px", width: "64px" }}
