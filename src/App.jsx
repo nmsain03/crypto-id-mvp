@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   return (
-    <div className="border border-gray-700 rounded-2xl p-4 shadow-sm bg-zinc-800 flex justify-between items-center h-32">
+    <div className="border border-[#F24405] rounded-2xl p-4 shadow-sm bg-zinc-800 flex justify-between items-center h-32">
       <div className="flex flex-col justify-center">
         <p className="font-medium text-pink-400">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
