@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QRCode from "qrcode.react";
+import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   return (
@@ -9,7 +9,7 @@ function WalletCard({ chain, address }) {
           <p className="font-medium text-pink-600">{chain}</p>
           <p className="text-xs break-all text-gray-600">{address}</p>
         </div>
-        <QRCode value={address} size={64} />
+        <QRCode value={address} style={{ height: "64px", maxWidth: "100%", width: "64px" }} />
       </div>
       <button
         className="mt-2 text-xs text-blue-600 hover:underline"
