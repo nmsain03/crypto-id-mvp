@@ -38,9 +38,9 @@ export default function App() {
         alt="Profile"
         className="rounded-full border border-gray-300 mt-6"
       />
-      <h1 className="text-2xl font-semibold mt-2">@julia</h1>
+      <h1 className="text-2xl font-semibold mt-2">@Polina</h1>
       <p className="text-sm text-gray-500 text-center mt-1">
-        Street Artist | Accepting crypto donations 💸
+        The Real Pink | Accepting crypto donations 💸
       </p>
 
       <div className="w-full max-w-md space-y-4 mt-6">
