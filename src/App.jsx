@@ -2,7 +2,6 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
-  // Pfad zur PNG je nach Chain
   const backgroundImages = {
     Bitcoin: "/btc.png",
     Ethereum: "/eth.png",
@@ -11,22 +10,39 @@ function WalletCard({ chain, address }) {
 
   const pattern = backgroundImages[chain] || "";
 
-  return (
-    <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32
-      bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-      transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
+  // Dynamischer Border-Style je nach Chain
+  const borderStyles = {
+    Ethereum: {
+      border: "2px solid #3b82f6", // Eth-Blau
+    },
+    Solana: {
+      border: "2px solid transparent",
+      borderImage: "linear-gradient(90deg, #00ffa3, #dc1fff) 1",
+    },
+    Bitcoin: {
+      border: "2px solid #f7931a", // BTC-Orange
+    },
+  };
 
+  const currentBorder = borderStyles[chain] || { border: "1px solid #fdf6ee" };
+
+  return (
+    <div
+      className="relative rounded-2xl p-4 flex justify-between items-center h-32
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
+        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden"
+      style={currentBorder}
+    >
       {/* 🔁 Chain-spezifisches Hintergrundpattern */}
       {pattern && (
         <div
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
           style={{
             backgroundImage: `url("${pattern}")`,
-            backgroundSize: chain === "Solana" ? '400px 400px' : '300px 300px',
-            animation: 'scroll-diagonal 30s linear infinite',
-            filter: 'blur(4px)',
-        }}
-
+            backgroundSize: chain === "Solana" ? "400px 400px" : "300px 300px",
+            animation: "scroll-diagonal 30s linear infinite",
+            filter: "blur(4px)",
+          }}
         ></div>
       )}
 
@@ -37,9 +53,13 @@ function WalletCard({ chain, address }) {
         <button
           className="mt-2 text-xs text-[#F24405] transition-all duration-200 inline w-fit leading-none"
           onClick={() => navigator.clipboard.writeText(address)}
-          style={{ transition: 'all 0.3s ease', textShadow: 'none' }}
-          onMouseEnter={(e) => { e.target.style.textShadow = '0 0 6px #F24405'; }}
-          onMouseLeave={(e) => { e.target.style.textShadow = 'none'; }}
+          style={{ transition: "all 0.3s ease", textShadow: "none" }}
+          onMouseEnter={(e) => {
+            e.target.style.textShadow = "0 0 6px #F24405";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.textShadow = "none";
+          }}
         >
           Copy address
         </button>
@@ -56,9 +76,6 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
-
-
-
 
 export default function App() {
   const [wallets] = useState([
