@@ -10,20 +10,17 @@ function WalletCard({ chain, address }) {
 
   const pattern = backgroundImages[chain] || "";
 
-  const borderColors = {
-    Ethereum: "border-2 border-[#3b82f6]",
-    Bitcoin: "border-2 border-[#f7931a]",
-    Solana: "", // wir machen für Solana einen eigenen div für den Rainbow-Rahmen
-  };
+  const isSolana = chain === "Solana";
 
-  const content = (
+  const innerCard = (
     <div
       className={`relative rounded-2xl p-4 flex justify-between items-center h-32
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
         transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden
-        ${borderColors[chain]}`}
+        ${!isSolana && "border-2"} 
+        ${chain === "Ethereum" ? "border-[#3b82f6]" : ""}
+        ${chain === "Bitcoin" ? "border-[#f7931a]" : ""}`}
     >
-      {/* Hintergrundpattern */}
       {pattern && (
         <div
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
@@ -36,7 +33,6 @@ function WalletCard({ chain, address }) {
         ></div>
       )}
 
-      {/* Vordergrund */}
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
@@ -66,16 +62,15 @@ function WalletCard({ chain, address }) {
     </div>
   );
 
-  // Extra div für Solana mit Rainbow-Border
-  if (chain === "Solana") {
+  if (isSolana) {
     return (
-      <div className="p-[2px] rounded-2xl bg-[linear-gradient(90deg,#00ffa3,#dc1fff)]">
-        {content}
+      <div className="p-[2px] rounded-2xl bg-gradient-to-r from-[#00ffa3] to-[#dc1fff]">
+        {innerCard}
       </div>
     );
   }
 
-  return content;
+  return innerCard;
 }
 
 export default function App() {
