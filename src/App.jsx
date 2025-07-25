@@ -22,10 +22,11 @@ function WalletCard({ chain, address }) {
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
           style={{
             backgroundImage: `url("${pattern}")`,
-            backgroundSize: '300px 300px',
+            backgroundSize: chain === "Solana" ? '200px 200px' : '300px 300px',
             animation: 'scroll-diagonal 30s linear infinite',
             filter: 'blur(4px)',
-          }}
+        }}
+
         ></div>
       )}
 
