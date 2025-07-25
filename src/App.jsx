@@ -8,7 +8,7 @@ function WalletCard({ chain, address }) {
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs text-blue-400 hover:underline text-left"
+          className="mt-2 text-xs text-[#F24405] hover:text-[#fdf6ee] text-left"
           onClick={() => navigator.clipboard.writeText(address)}
         >
           Copy address
