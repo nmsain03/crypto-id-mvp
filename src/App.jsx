@@ -27,7 +27,7 @@ function WalletCard({ chain, address }) {
             filter: 'blur(4px)',
         }}
 
-        ></div>
+        </div>
       )}
 
       {/* 🔼 Vordergrund-Inhalt */}
