@@ -14,12 +14,13 @@ function WalletCard({ chain, address }) {
   const colors = {
     Ethereum: "#3b82f6",
     Bitcoin: "#f7931a",
-    Solana: "#00ffa3", // pick one from gradient
+    Solana: "#00ffa3", // used for text hover
   };
 
   const copyColor = colors[chain] || "#F24405";
 
-  const innerCard = (
+  // Inhalt der Kachel
+  const content = (
     <div
       className={`relative rounded-2xl p-4 flex justify-between items-center h-32
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
@@ -28,6 +29,7 @@ function WalletCard({ chain, address }) {
         ${chain === "Ethereum" ? "border-[#3b82f6]" : ""}
         ${chain === "Bitcoin" ? "border-[#f7931a]" : ""}`}
     >
+      {/* Pattern mit Logo */}
       {pattern && (
         <div
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
@@ -73,15 +75,16 @@ function WalletCard({ chain, address }) {
     </div>
   );
 
+  // Solana mit Rahmen
   if (isSolana) {
     return (
       <div className="p-[2px] rounded-2xl bg-gradient-to-r from-[#00ffa3] to-[#dc1fff]">
-        {innerCard}
+        <div className="rounded-[14px] overflow-hidden">{content}</div>
       </div>
     );
   }
 
-  return innerCard;
+  return content;
 }
 
 export default function App() {
