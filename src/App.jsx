@@ -15,6 +15,12 @@ function WalletCard({ chain, address }) {
         </button>
       </div>
 
+     <img
+  src="/profile.jpg"
+  alt="Profile"
+  className="rounded-full border border-gray-500"
+/>
+
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20">
         <QRCode
           value={address}
