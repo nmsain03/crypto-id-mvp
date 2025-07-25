@@ -12,7 +12,7 @@ function WalletCard({ chain, address }) {
         className="absolute inset-0 z-0 opacity-10 bg-repeat"
          style={{
           backgroundImage: 'url("/btc.png")',
-          backgroundSize: '48px 48px', // mehr Abstand
+          backgroundSize: '60px 60px', // mehr Abstand
           animation: 'scroll-diagonal 30s linear infinite',
           filter: 'blur(3px)' // unschärfe für glossy Effekt
         }}
