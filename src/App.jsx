@@ -2,6 +2,8 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const backgroundImages = {
     Bitcoin: "/btc.png",
     Ethereum: "/eth.png",
@@ -26,8 +28,13 @@ function WalletCard({ chain, address }) {
     <div
       className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden
-        ${borderColors[chain]}`}
+        overflow-hidden ${borderColors[chain]}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        boxShadow: isHovered ? `0 0 6px ${textColors[chain]}` : undefined,
+        transition: "box-shadow 0.2s ease",
+      }}
     >
       {pattern && (
         <div
@@ -73,8 +80,9 @@ function WalletCard({ chain, address }) {
     </div>
   );
 
-  return content; // <== KEIN Wrapper für Solana mehr
+  return content;
 }
+
 
 export default function App() {
   const [wallets] = useState([
