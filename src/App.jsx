@@ -11,9 +11,9 @@ function WalletCard({ chain, address }) {
   return (
     <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32 
       bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-      transition-shadow duration-300 hover:shadow-[0_0_7px_#fdf6ee] overflow-hidden">
+      transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
 
-      {/* Background logo */}
+      {/* Background chain logo */}
       <img
         src={logoSrc}
         alt={`${chain} logo`}
@@ -21,11 +21,14 @@ function WalletCard({ chain, address }) {
       />
 
       <div className="flex flex-col justify-center relative z-10">
-        <p className="font-medium text-[#F24405]">{chain}</p>
+        <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs text-orange-400 hover:text-orange-500 hover:drop-shadow-[0_0_4px_#F24405]"
+          className="mt-2 text-xs text-[#F24405] transition-all duration-200 inline w-fit leading-none"
           onClick={() => navigator.clipboard.writeText(address)}
+          style={{ transition: 'all 0.3s ease', textShadow: 'none' }}
+          onMouseEnter={(e) => { e.target.style.textShadow = '0 0 6px #F24405'; }}
+          onMouseLeave={(e) => { e.target.style.textShadow = 'none'; }}
         >
           Copy address
         </button>
@@ -42,7 +45,6 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
-
 
 export default function App() {
   const [wallets] = useState([
