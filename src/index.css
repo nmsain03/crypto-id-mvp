@@ -10,3 +10,13 @@ body {
 img {
   @apply mx-auto;
 }
+
+@keyframes scroll-diagonal {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100px 100px;
+  }
+}
+
