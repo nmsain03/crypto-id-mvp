@@ -8,12 +8,16 @@ function WalletCard({ chain, address }) {
       transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
 
       {/* 🔁 Repeating BTC pattern in background */}
-      <div className="absolute inset-0 z-0 opacity-10 bg-repeat"
-           style={{
-             backgroundImage: 'url("/btc.png")',
-             backgroundSize: '24px 24px',
-             animation: 'scroll-diagonal 20s linear infinite'
-           }}></div>
+      <div
+        className="absolute inset-0 z-0 opacity-10 bg-repeat"
+         style={{
+          backgroundImage: 'url("/btc.png")',
+          backgroundSize: '48px 48px', // mehr Abstand
+          animation: 'scroll-diagonal 30s linear infinite',
+          filter: 'blur(3px)' // unschärfe für glossy Effekt
+        }}
+    ></div>
+
 
       {/* 🔼 Content above background */}
       <div className="flex flex-col justify-center relative z-10">
