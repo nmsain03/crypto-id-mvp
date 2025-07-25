@@ -24,14 +24,22 @@ function WalletCard({ chain, address }) {
   const isGradient = chain === "Solana";
 
   return (
-    <div
-      className="rounded-2xl p-[2px]"
-      style={{
-        background: isGradient
-          ? "linear-gradient(90deg, #00ffa3, #dc1fff)"
-          : borderColors[chain],
-      }}
-    >
+    <div className="rounded-2xl p-[2px] bg-transparent">
+  <div
+    className="rounded-2xl w-full h-full"
+    style={{
+      background: isGradient
+        ? "linear-gradient(90deg, #00ffa3, #dc1fff)"
+        : borderColors[chain],
+    }}
+  >
+    <div className="rounded-[0.95rem] bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
+        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden flex justify-between items-center p-4 h-32">
+      {/* 🔁 Der Rest deines Inhalts bleibt hier gleich */}
+    </div>
+  </div>
+</div>
+
       {/* 🟢 Innere glasige Kachel */}
       <div
         className="relative rounded-[0.95rem] bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
