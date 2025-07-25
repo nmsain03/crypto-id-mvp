@@ -13,7 +13,7 @@ function WalletCard({ chain, address }) {
   const borderColors = {
     Ethereum: "border-2 border-[#3b82f6]",
     Bitcoin: "border-2 border-[#f7931a]",
-    Solana: "", // kein Rand mehr
+    Solana: "border-2 border-[#00ffa3]",
   };
 
   const textColors = {
