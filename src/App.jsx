@@ -13,15 +13,22 @@ function WalletCard({ chain, address }) {
   const borderColors = {
     Ethereum: "border-2 border-[#3b82f6]",
     Bitcoin: "border-2 border-[#f7931a]",
-    Solana: "", // wir machen für Solana einen eigenen div für den Rainbow-Rahmen
   };
+
+  const textColors = {
+    Ethereum: "#3b82f6",
+    Bitcoin: "#f7931a",
+    Solana: "#00ffa3",
+  };
+
+  const isSolana = chain === "Solana";
 
   const content = (
     <div
-      className={`relative rounded-2xl p-4 flex justify-between items-center h-32
+      className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden
-        ${borderColors[chain]}`}
+        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden 
+        ${!isSolana ? borderColors[chain] : ""}`}
     >
       {/* Hintergrundpattern */}
       {pattern && (
@@ -41,11 +48,14 @@ function WalletCard({ chain, address }) {
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs text-[#F24405] transition-all duration-200 inline w-fit leading-none"
+          className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
           onClick={() => navigator.clipboard.writeText(address)}
-          style={{ transition: "all 0.3s ease", textShadow: "none" }}
+          style={{
+            color: textColors[chain],
+            textShadow: "none",
+          }}
           onMouseEnter={(e) => {
-            e.target.style.textShadow = "0 0 6px #F24405";
+            e.target.style.textShadow = `0 0 6px ${textColors[chain]}`;
           }}
           onMouseLeave={(e) => {
             e.target.style.textShadow = "none";
@@ -66,16 +76,14 @@ function WalletCard({ chain, address }) {
     </div>
   );
 
-  // Extra div für Solana mit Rainbow-Border
-  if (chain === "Solana") {
-    return (
-      <div className="p-[2px] rounded-2xl bg-[linear-gradient(90deg,#00ffa3,#dc1fff)]">
-        {content}
-      </div>
-    );
-  }
-
-  return content;
+  return isSolana ? (
+    <div className="p-[2px] rounded-2xl" style={{ background: "linear-gradient(90deg, #00ffa3, #dc1fff)" }}>
+      {/* Um das Glass-Effekt korrekt zu behalten, muss der innere div NICHT voll ausfüllen */}
+      <div className="rounded-[0.95rem] overflow-hidden">{content}</div>
+    </div>
+  ) : (
+    content
+  );
 }
 
 export default function App() {
