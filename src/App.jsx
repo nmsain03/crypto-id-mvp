@@ -2,15 +2,17 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   const backgroundImages = {
     Bitcoin: "/btc.png",
     Ethereum: "/eth.png",
     Solana: "/sol.png",
   };
 
-  const pattern = backgroundImages[chain] || "";
+  const hoverShadows = {
+    Ethereum: "hover:shadow-[0_0_5px_#3b82f6]",
+    Bitcoin: "hover:shadow-[0_0_5px_#f7931a]",
+    Solana: "hover:shadow-[0_0_5px_#00ffa3]",
+  };
 
   const borderColors = {
     Ethereum: "border-2 border-[#3b82f6]",
@@ -24,17 +26,13 @@ function WalletCard({ chain, address }) {
     Solana: "#00ffa3",
   };
 
-  const content = (
+  const pattern = backgroundImages[chain] || "";
+
+  return (
     <div
       className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        overflow-hidden ${borderColors[chain]}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        boxShadow: isHovered ? `0 0 6px ${textColors[chain]}` : undefined,
-        transition: "box-shadow 0.2s ease",
-      }}
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
+        transition-shadow duration-200 ${borderColors[chain]} ${hoverShadows[chain]}`}
     >
       {pattern && (
         <div
@@ -79,6 +77,8 @@ function WalletCard({ chain, address }) {
       </div>
     </div>
   );
+}
+
 
   return content;
 }
