@@ -79,11 +79,6 @@ function WalletCard({ chain, address }) {
   );
 }
 
-
-  return content;
-}
-
-
 export default function App() {
   const [wallets] = useState([
     { chain: "Ethereum", address: "0x1234...abcd" },
