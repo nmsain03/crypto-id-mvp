@@ -9,8 +9,15 @@ function WalletCard({ chain, address }) {
   };
 
   const pattern = backgroundImages[chain] || "";
-
   const isSolana = chain === "Solana";
+
+  const colors = {
+    Ethereum: "#3b82f6",
+    Bitcoin: "#f7931a",
+    Solana: "#00ffa3", // pick one from gradient
+  };
+
+  const copyColor = colors[chain] || "#F24405";
 
   const innerCard = (
     <div
@@ -37,11 +44,15 @@ function WalletCard({ chain, address }) {
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs text-[#F24405] transition-all duration-200 inline w-fit leading-none"
+          className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
           onClick={() => navigator.clipboard.writeText(address)}
-          style={{ transition: "all 0.3s ease", textShadow: "none" }}
+          style={{
+            color: copyColor,
+            transition: "all 0.3s ease",
+            textShadow: "none",
+          }}
           onMouseEnter={(e) => {
-            e.target.style.textShadow = "0 0 6px #F24405";
+            e.target.style.textShadow = `0 0 6px ${copyColor}`;
           }}
           onMouseLeave={(e) => {
             e.target.style.textShadow = "none";
