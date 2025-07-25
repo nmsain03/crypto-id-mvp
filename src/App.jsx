@@ -18,7 +18,7 @@ function WalletCard({ chain, address }) {
   const textColors = {
     Ethereum: "#3b82f6",
     Bitcoin: "#f7931a",
-    Solana: "#00ffa3", // optional
+    Solana: "#00ffa3",
   };
 
   const isGradient = chain === "Solana";
@@ -32,11 +32,15 @@ function WalletCard({ chain, address }) {
           : borderColors[chain],
       }}
     >
+      {/* 🟢 Innere glasige Kachel */}
       <div
-        className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden"
+        className="relative rounded-[0.95rem] bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
+        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden flex justify-between items-center p-4 h-32"
+        style={{
+          background: "rgba(39, 39, 42, 0.3)", // fixes full fill
+        }}
       >
+        {/* 🔁 Hintergrundpattern */}
         {pattern && (
           <div
             className="absolute inset-0 z-0 opacity-10 bg-repeat"
@@ -46,9 +50,10 @@ function WalletCard({ chain, address }) {
               animation: "scroll-diagonal 30s linear infinite",
               filter: "blur(4px)",
             }}
-          ></div>
+          />
         )}
 
+        {/* 🔼 Vordergrund-Inhalt */}
         <div className="flex flex-col justify-center relative z-10">
           <p className="font-medium text-[#fdf6ee]">{chain}</p>
           <p className="text-xs break-all text-gray-300">{address}</p>
@@ -56,11 +61,11 @@ function WalletCard({ chain, address }) {
             className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
             onClick={() => navigator.clipboard.writeText(address)}
             style={{
-              color: isGradient ? "#00ffa3" : textColors[chain],
+              color: textColors[chain],
               textShadow: "none",
             }}
             onMouseEnter={(e) => {
-              e.target.style.textShadow = `0 0 6px ${isGradient ? "#00ffa3" : textColors[chain]}`;
+              e.target.style.textShadow = `0 0 6px ${textColors[chain]}`;
             }}
             onMouseLeave={(e) => {
               e.target.style.textShadow = "none";
