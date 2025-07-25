@@ -2,26 +2,19 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
-  const logoSrc = {
-    {chain === "Bitcoin" && (
-  <img
-    src="/btc.png"
-    alt="Bitcoin logo"
-    className="absolute opacity-10 w-24 h-24 object-contain left-2 top-2 pointer-events-none select-none"
-  />
-)}
-
   return (
     <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32 
       bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
       transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
 
-      {/* Background chain logo */}
-      <img
-        src={logoSrc}
-        alt={`${chain} logo`}
-        className="absolute opacity-10 w-24 h-24 object-contain left-2 top-2 pointer-events-none select-none"
-      />
+      {/* ✅ Show BTC logo only if chain is Bitcoin */}
+      {chain === "Bitcoin" && (
+        <img
+          src="/btc.png"
+          alt="Bitcoin logo"
+          className="absolute opacity-10 w-24 h-24 object-contain left-2 top-2 pointer-events-none select-none"
+        />
+      )}
 
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
@@ -48,6 +41,7 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
+
 
 export default function App() {
   const [wallets] = useState([
