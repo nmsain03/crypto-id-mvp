@@ -2,25 +2,34 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
+  // Pfad zur PNG je nach Chain
+  const backgroundImages = {
+    Bitcoin: "/btc.png",
+    Ethereum: "/eth.png",
+    Solana: "/sol.png",
+  };
+
+  const pattern = backgroundImages[chain] || "";
+
   return (
     <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32
       bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
       transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
 
-      {/* 🔁 Repeating BTC pattern in background */}
-      <div
-        className="absolute inset-0 z-0 opacity-10 bg-repeat"
-         style={{
-          backgroundImage: 'url("/btc.png")',
-          backgroundSize: '300px 300px', // mehr Abstand
-          backgroundPosition: '0 0, 32px 32px', // (optional layering)
-          animation: 'scroll-diagonal 30s linear infinite',
-          filter: 'blur(3px)' // unschärfe für glossy Effekt
-        }}
-    ></div>
+      {/* 🔁 Chain-spezifisches Hintergrundpattern */}
+      {pattern && (
+        <div
+          className="absolute inset-0 z-0 opacity-10 bg-repeat"
+          style={{
+            backgroundImage: `url("${pattern}")`,
+            backgroundSize: '300px 300px',
+            animation: 'scroll-diagonal 30s linear infinite',
+            filter: 'blur(4px)',
+          }}
+        ></div>
+      )}
 
-
-      {/* 🔼 Content above background */}
+      {/* 🔼 Vordergrund-Inhalt */}
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
@@ -46,6 +55,7 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
+
 
 
 
