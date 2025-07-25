@@ -3,19 +3,19 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   return (
-    <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32 
+    <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32
       bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
       transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden">
 
-      {/* ✅ Show BTC logo only if chain is Bitcoin */}
-      {chain === "Bitcoin" && (
-        <img
-          src="/btc.png"
-          alt="Bitcoin logo"
-          className="absolute opacity-10 w-24 h-24 object-contain left-2 top-2 pointer-events-none select-none"
-        />
-      )}
+      {/* 🔁 Repeating BTC pattern in background */}
+      <div className="absolute inset-0 z-0 opacity-10 bg-repeat"
+           style={{
+             backgroundImage: 'url("/btc.png")',
+             backgroundSize: '24px 24px',
+             animation: 'scroll-diagonal 20s linear infinite'
+           }}></div>
 
+      {/* 🔼 Content above background */}
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
@@ -41,6 +41,7 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
+
 
 
 export default function App() {
