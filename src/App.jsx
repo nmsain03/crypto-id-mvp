@@ -40,7 +40,7 @@ export default function App() {
        <img
           src="/profile.jpg"
           alt="Profile"
-          className="w-24 h-24 rounded-full border border-[#fdf6ee] object-cover"
+          className="w-24 h-24 rounded-full border border-[#fdf6ee] object-cover shadow-[0_0_8px_#fdf6ee]"
       />
         <h1 className="text-2xl font-semibold text-white">@polina</h1>
         <p className="text-sm text-gray-400 text-center">
