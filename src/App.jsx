@@ -8,11 +8,20 @@ function WalletCard({ chain, address }) {
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs text-[#F24405] hover:text-[#fdf6ee] hover:shadow-[0_0_8px_#F24405] transition-all duration-200 text-left inline-block"
-          onClick={() => navigator.clipboard.writeText(address)}
-        >
-          Copy address
-        </button>
+  className="mt-2 text-xs text-[#F24405] transition-all duration-200 text-left"
+  onClick={() => navigator.clipboard.writeText(address)}
+  style={{
+    transition: 'all 0.3s ease',
+  }}
+  onMouseEnter={(e) =>
+    (e.target.style.textShadow = '0 0 6px #F24405')
+  }
+  onMouseLeave={(e) =>
+    (e.target.style.textShadow = 'none')
+  }
+>
+  Copy address
+</button>
       </div>
 
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20">
