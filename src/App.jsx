@@ -17,6 +17,7 @@ function WalletCard({ chain, address }) {
     Solana: {
       border: "2px solid transparent",
       borderImage: "linear-gradient(90deg, #00ffa3, #dc1fff) 1",
+      borderImageSlice: 1, // ✅ Fix für runde Ecken
     },
     Bitcoin: {
       border: "2px solid #f7931a",
@@ -35,7 +36,7 @@ function WalletCard({ chain, address }) {
         borderRadius: "1rem",
       }}
     >
-      {/* 🔁 Hintergrundpattern */}
+      {/* Hintergrundmuster */}
       {pattern && (
         <div
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
@@ -48,7 +49,7 @@ function WalletCard({ chain, address }) {
         ></div>
       )}
 
-      {/* 🔼 Vordergrund */}
+      {/* Vordergrund-Inhalt */}
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
