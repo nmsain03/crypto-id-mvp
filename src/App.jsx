@@ -13,6 +13,7 @@ function WalletCard({ chain, address }) {
          style={{
           backgroundImage: 'url("/btc.png")',
           backgroundSize: '60px 60px', // mehr Abstand
+          backgroundPosition: '0 0, 32px 32px', // (optional layering)
           animation: 'scroll-diagonal 30s linear infinite',
           filter: 'blur(3px)' // unschärfe für glossy Effekt
         }}
