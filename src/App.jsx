@@ -3,10 +3,13 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   const logoSrc = {
-    Ethereum: "/eth.png",
-    Solana: "/sol.png",
-    Bitcoin: "/btc.png"
-  }[chain];
+    {chain === "Bitcoin" && (
+  <img
+    src="/btc.png"
+    alt="Bitcoin logo"
+    className="absolute opacity-10 w-24 h-24 object-contain left-2 top-2 pointer-events-none select-none"
+  />
+)}
 
   return (
     <div className="relative border border-[#fdf6ee] rounded-2xl p-4 flex justify-between items-center h-32 
