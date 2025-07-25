@@ -16,7 +16,7 @@ img {
     background-position: 0 0;
   }
   100% {
-    background-position: 200px 200px; /* exakt gleich wie backgroundSize */
+    background-position: 300px 300px; /* exakt gleich wie backgroundSize */
   }
 }
 
