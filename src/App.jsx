@@ -15,12 +15,6 @@ function WalletCard({ chain, address }) {
         </button>
       </div>
 
-     <img
-  src="/profile.jpg"
-  alt="Profile"
-  className="rounded-full border border-gray-500"
-/>
-
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20">
         <QRCode
           value={address}
@@ -43,11 +37,11 @@ export default function App() {
   return (
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
       <div className="w-full max-w-md flex flex-col items-center gap-4">
-        <img
-          src="https://placehold.co/100x100"
+       <img
+          src="/profile.jpg"
           alt="Profile"
-          className="rounded-full border border-gray-500"
-        />
+          className="w-24 h-24 object-cover rounded-full border border-[#fdf6ee]"
+      />
         <h1 className="text-2xl font-semibold text-white">@polina</h1>
         <p className="text-sm text-gray-400 text-center">
           The Real Pink | Accepting crypto donations 💸
