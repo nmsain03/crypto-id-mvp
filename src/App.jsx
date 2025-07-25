@@ -28,10 +28,15 @@ function WalletCard({ chain, address }) {
 
   return (
     <div
-      className="relative rounded-2xl p-4 flex justify-between items-center h-32
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden"
-      style={currentBorder}
+        className="relative rounded-2xl p-4 flex justify-between items-center h-32
+         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
+          transition-shadow duration-200 hover:shadow-[0_0_5px_#fdf6ee] overflow-hidden"
+          style={{
+          ...currentBorder,
+            borderRadius: "1rem", // Rundung für alle – auch bei borderImage
+      }}
+    >
+
     >
       {/* 🔁 Chain-spezifisches Hintergrundpattern */}
       {pattern && (
