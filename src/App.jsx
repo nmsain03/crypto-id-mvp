@@ -1,7 +1,12 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
+import { useState } from "react";
+import QRCode from "react-qr-code";
+
 function WalletCard({ chain, address }) {
+  const [copied, setCopied] = useState(false);
+
   const backgroundImages = {
     Bitcoin: "/btc.png",
     Ethereum: "/eth.png",
@@ -28,6 +33,12 @@ function WalletCard({ chain, address }) {
 
   const pattern = backgroundImages[chain] || "";
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500); // Nach 1.5s zurücksetzen
+  };
+
   return (
     <div
       className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
@@ -51,19 +62,13 @@ function WalletCard({ chain, address }) {
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
           className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
-          onClick={() => navigator.clipboard.writeText(address)}
+          onClick={handleCopy}
           style={{
             color: textColors[chain],
-            textShadow: "none",
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.textShadow = `0 0 6px ${textColors[chain]}`;
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.textShadow = "none";
+            textShadow: copied ? `0 0 6px ${textColors[chain]}` : "none",
           }}
         >
-          Copy address
+          {copied ? "Copied!" : "Copy address"}
         </button>
       </div>
 
@@ -78,6 +83,7 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
+
 
 export default function App() {
   const [wallets] = useState([
