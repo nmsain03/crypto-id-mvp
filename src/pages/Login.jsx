@@ -7,11 +7,13 @@ export default function Login() {
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
       <div
         className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2"
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2
+        transition-shadow duration-[250ms] ease-in-out"
         style={{
           borderColor: "#fdf6ee",
-          boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
-          transition: "box-shadow 250ms ease-in-out",
+          boxShadow: isHovered
+            ? "0 0 10px #fdf6ee"
+            : "0 0 0px transparent",
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
