@@ -1,9 +1,6 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
-import { useState } from "react";
-import QRCode from "react-qr-code";
-
 function WalletCard({ chain, address }) {
   const [copied, setCopied] = useState(false);
 
