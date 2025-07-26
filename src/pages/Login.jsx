@@ -6,16 +6,17 @@ export default function Login() {
   return (
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
       <div
-        className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2"
-        style={{
-          borderColor: "#fdf6ee",
-          boxShadow: isHovered ? "0 0 4px #fdf6ee" : "0 0 0px transparent",
-          transition: "box-shadow 250ms ease-in-out",
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+  className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
+  bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2"
+  style={{
+    borderColor: "#fdf6ee",
+    boxShadow: isHovered ? "0 0 8px #fdf6ee" : "0 0 0px transparent",
+    transition: "box-shadow 100ms ease-in-out",
+  }}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+>
+
         <h1 className="text-xl font-semibold text-center mb-2">Log in to Cryptfie</h1>
 
         <input
