@@ -10,7 +10,7 @@ export default function Login() {
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2"
         style={{
           borderColor: "#fdf6ee",
-          boxShadow: isHovered ? "0 0 6px #fdf6ee" : "0 0 0px transparent",
+          boxShadow: isHovered ? "0 0 4px #fdf6ee" : "0 0 0px transparent",
           transition: "box-shadow 250ms ease-in-out",
         }}
         onMouseEnter={() => setIsHovered(true)}
