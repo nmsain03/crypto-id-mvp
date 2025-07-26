@@ -23,7 +23,7 @@ function WalletCard({ chain, address }) {
     <div
       className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
-        transition-shadow duration-500 ease-in-out border-2"
+        transition-shadow duration-250 ease-in-out border-2"
       style={{
         borderColor: shadowColor,
         boxShadow: isHovered
