@@ -50,22 +50,23 @@ function WalletCard({ chain, address }) {
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
-        <button
+               <button
           className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
-          onClick={() => navigator.clipboard.writeText(address)}
+          onClick={handleCopy}
           style={{
             color: shadowColor,
-            textShadow: "none",
+            textShadow: copied ? `0 0 6px ${shadowColor}` : "none",
           }}
           onMouseEnter={(e) => {
-            e.target.style.textShadow = `0 0 6px ${shadowColor}`;
+            if (!copied) e.target.style.textShadow = `0 0 6px ${shadowColor}`;
           }}
           onMouseLeave={(e) => {
-            e.target.style.textShadow = "none";
+            if (!copied) e.target.style.textShadow = "none";
           }}
         >
-          Copy address
+          {copied ? "Copied!" : "Copy address"}
         </button>
+
       </div>
 
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20 relative z-10">
