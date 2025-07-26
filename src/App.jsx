@@ -2,7 +2,7 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
-  const [copied, setCopied] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const backgroundImages = {
     Bitcoin: "/btc.png",
@@ -10,38 +10,30 @@ function WalletCard({ chain, address }) {
     Solana: "/sol.png",
   };
 
-  const hoverShadows = {
-    Ethereum: "hover:shadow-[0_0_5px_#3b82f6]",
-    Bitcoin: "hover:shadow-[0_0_5px_#f7931a]",
-    Solana: "hover:shadow-[0_0_5px_#00ffa3]",
-  };
-
   const borderColors = {
-    Ethereum: "border-2 border-[#3b82f6]",
-    Bitcoin: "border-2 border-[#f7931a]",
-    Solana: "border-2 border-[#00ffa3]",
-  };
-
-  const textColors = {
     Ethereum: "#3b82f6",
     Bitcoin: "#f7931a",
     Solana: "#00ffa3",
   };
 
   const pattern = backgroundImages[chain] || "";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(address);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500); // Nach 1.5s zurücksetzen
-  };
+  const shadowColor = borderColors[chain];
 
   return (
     <div
-  className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
-    bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
-    transition-shadow duration-50000 ease-in-out ${borderColors[chain]} ${hoverShadows[chain]}`}
->
+      className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
+        transition-shadow duration-500 ease-in-out border-2"
+      style={{
+        borderColor: shadowColor,
+        boxShadow: isHovered
+          ? `0 0 10px ${shadowColor}`
+          : `0 0 0px transparent`,
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Pattern-Hintergrund */}
       {pattern && (
         <div
           className="absolute inset-0 z-0 opacity-10 bg-repeat"
@@ -51,32 +43,29 @@ function WalletCard({ chain, address }) {
             animation: "scroll-diagonal 30s linear infinite",
             filter: "blur(4px)",
           }}
-        ></div>
+        />
       )}
 
+      {/* Inhalt */}
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-  className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
-  onClick={() => {
-    navigator.clipboard.writeText(address);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200); // shorter duration
-  }}
-  style={{
-    color: textColors[chain],
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.textShadow = `0 0 6px ${textColors[chain]}`;
-  }}
-  onMouseLeave={(e) => {
-    e.target.style.textShadow = "none";
-  }}
->
-  {copied ? "Copied!" : "Copy address"}
-</button>
-
+          className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
+          onClick={() => navigator.clipboard.writeText(address)}
+          style={{
+            color: shadowColor,
+            textShadow: "none",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.textShadow = `0 0 6px ${shadowColor}`;
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.textShadow = "none";
+          }}
+        >
+          Copy address
+        </button>
       </div>
 
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20 relative z-10">
@@ -90,6 +79,7 @@ function WalletCard({ chain, address }) {
     </div>
   );
 }
+
 
 
 
