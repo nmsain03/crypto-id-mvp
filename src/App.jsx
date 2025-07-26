@@ -58,7 +58,7 @@ function WalletCard({ chain, address }) {
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
         <button
-          className="mt-2 text-xs transition-all duration-10 inline w-fit leading-none"
+          className="mt-2 text-xs transition-all duration-300 inline w-fit leading-none"
           onClick={handleCopy}
           style={{
             color: textColors[chain],
