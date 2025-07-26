@@ -11,7 +11,7 @@ export default function Login() {
         style={{
           borderColor: "#fdf6ee",
           boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
-          transition: "box-shadow 250ms ease-in-out",
+          transition: "box-shadow 175ms ease-in-out",
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
