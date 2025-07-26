@@ -3,6 +3,13 @@ import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [copied, setCopied] = useState(false); // ✅ hinzugefügt
+
+  const handleCopy = () => { // ✅ hinzugefügt
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
 
   const backgroundImages = {
     Bitcoin: "/btc.png",
