@@ -40,7 +40,7 @@ function WalletCard({ chain, address }) {
     <div
   className={`relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
     bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
-    transition-shadow duration-1500 ease-in-out ${borderColors[chain]} ${hoverShadows[chain]}`}
+    transition-shadow duration-50000 ease-in-out ${borderColors[chain]} ${hoverShadows[chain]}`}
 >
       {pattern && (
         <div
