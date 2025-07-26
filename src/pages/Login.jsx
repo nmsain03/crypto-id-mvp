@@ -6,7 +6,7 @@ export default function Login() {
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
       <div
         className="bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        border-2 border-[#fdf6ee] transition-shadow duration-300
+        border-2 border-[#fdf6ee] transition-shadow duration-250 ease-in-out
         p-8 rounded-2xl w-full max-w-sm flex flex-col gap-4
         hover:shadow-[0_0_12px_#fdf6ee]"
       >
