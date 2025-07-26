@@ -1,18 +1,22 @@
-// src/pages/Login.jsx
 import { useState } from "react";
 
 export default function Login() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
       <div
-        className="bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5
-        border-2 border-[#fdf6ee] transition-shadow duration-500 ease-in-out
-        p-8 rounded-2xl w-full max-w-sm flex flex-col gap-4
-        hover:shadow-[0_0_12px_#fdf6ee]"
+        className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2"
+        style={{
+          borderColor: "#fdf6ee",
+          boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
+          transition: "box-shadow 250ms ease-in-out",
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <h1 className="text-center text-xl font-semibold text-white mb-2">
-          Log in to Cryptfie
-        </h1>
+        <h1 className="text-xl font-semibold text-center mb-2">Log in to Cryptfie</h1>
 
         <input
           type="email"
