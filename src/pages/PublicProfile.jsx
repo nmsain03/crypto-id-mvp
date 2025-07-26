@@ -1,12 +1,97 @@
-// src/pages/PublicProfile.jsx
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
 function WalletCard({ chain, address }) {
-  // 💯 Deine gesamte Card-Funktion bleibt hier drin, unverändert!
+  const [isHovered, setIsHovered] = useState(false);
+  const [copied, setCopied] = useState(false); // ✅ hinzugefügt
+
+  const handleCopy = () => { // ✅ hinzugefügt
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+
+  const backgroundImages = {
+    Bitcoin: "/btc.png",
+    Ethereum: "/eth.png",
+    Solana: "/sol.png",
+  };
+
+  const borderColors = {
+    Ethereum: "#3b82f6",
+    Bitcoin: "#f7931a",
+    Solana: "#00ffa3",
+  };
+
+  const pattern = backgroundImages[chain] || "";
+  const shadowColor = borderColors[chain];
+
+  return (
+    <div
+      className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
+        transition-shadow duration-250 ease-in-out border-2"
+      style={{
+        borderColor: shadowColor,
+        boxShadow: isHovered
+          ? `0 0 10px ${shadowColor}`
+          : `0 0 0px transparent`,
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Pattern-Hintergrund */}
+      {pattern && (
+        <div
+          className="absolute inset-0 z-0 opacity-10 bg-repeat"
+          style={{
+            backgroundImage: `url("${pattern}")`,
+            backgroundSize: chain === "Solana" ? "400px 400px" : "300px 300px",
+            animation: "scroll-diagonal 30s linear infinite",
+            filter: "blur(4px)",
+          }}
+        />
+      )}
+
+      {/* Inhalt */}
+      <div className="flex flex-col justify-center relative z-10">
+        <p className="font-medium text-[#fdf6ee]">{chain}</p>
+        <p className="text-xs break-all text-gray-300">{address}</p>
+               <button
+          className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
+          onClick={handleCopy}
+          style={{
+            color: shadowColor,
+            textShadow: copied ? `0 0 6px ${shadowColor}` : "none",
+          }}
+          onMouseEnter={(e) => {
+            if (!copied) e.target.style.textShadow = `0 0 6px ${shadowColor}`;
+          }}
+          onMouseLeave={(e) => {
+            if (!copied) e.target.style.textShadow = "none";
+          }}
+        >
+          {copied ? "Copied!" : "Copy address"}
+        </button>
+
+      </div>
+
+      <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20 relative z-10">
+        <QRCode
+          value={address}
+          style={{ height: "64px", width: "64px" }}
+          bgColor="#000000"
+          fgColor="#ffffff"
+        />
+      </div>
+    </div>
+  );
 }
 
-export default function PublicProfile() {
+
+
+
+export default function App() {
   const [wallets] = useState([
     { chain: "Ethereum", address: "0x1234...abcd" },
     { chain: "Solana", address: "So1anaAddre5sHere" },
