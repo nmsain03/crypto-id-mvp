@@ -62,7 +62,7 @@ function WalletCard({ chain, address }) {
   onClick={() => {
     navigator.clipboard.writeText(address);
     setCopied(true);
-    setTimeout(() => setCopied(false), 800); // shorter duration
+    setTimeout(() => setCopied(false), 1200); // shorter duration
   }}
   style={{
     color: textColors[chain],
