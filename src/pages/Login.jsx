@@ -9,33 +9,36 @@ const logos = [
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Mehrfach zufällig gemischt für mehr Vielfalt
-  const floatingLogos = Array.from({ length: 25 }, () =>
+  // Erzeuge 50 Logos in zufälliger Reihenfolge
+  const floatingLogos = Array.from({ length: 50 }, () =>
     logos[Math.floor(Math.random() * logos.length)]
   );
 
   return (
     <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
       {/* Hintergrundlogos */}
-      {floatingLogos.map((logo, index) => (
-        <img
-          key={index}
-          src={logo.src}
-          alt={logo.alt}
-          className="absolute opacity-10 animate-float"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: "36px",
-            height: "36px",
-            objectFit: "contain",
-            animationDelay: `${Math.random() * 5}s`,
-            transform: `rotate(${Math.random() * 360}deg)`,
-          }}
-        />
-      ))}
+      {floatingLogos.map((logo, index) => {
+        const isSolana = logo.alt === "SOL";
+        return (
+          <img
+            key={index}
+            src={logo.src}
+            alt={logo.alt}
+            className="absolute opacity-10 animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: isSolana ? "42px" : "32px",   // Solana größer
+              height: isSolana ? "42px" : "32px",
+              objectFit: "contain",
+              animationDelay: `${Math.random() * 5}s`,
+              transform: `rotate(${Math.random() * 360}deg)`,
+            }}
+          />
+        );
+      })}
 
-      {/* Login-Karte */}
+      {/* Login-Box */}
       <div
         className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2 z-10"
