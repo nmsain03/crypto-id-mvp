@@ -1,29 +1,40 @@
 import { useState } from "react";
 
+const logos = [
+  { src: "/btclogo.png", alt: "BTC" },
+  { src: "/ethlogo.png", alt: "ETH" },
+  { src: "/sologo.png", alt: "SOL" },
+];
+
+const floatingLogos = Array.from({ length: 12 }, (_, i) => ({
+  ...logos[i % logos.length],
+  top: `${Math.random() * 90}%`,
+  left: `${Math.random() * 90}%`,
+  duration: `${10 + Math.random() * 10}s`,
+  size: `${40 + Math.random() * 30}px`,
+}));
+
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans relative overflow-hidden">
-      {/* 🪐 Floating Logos */}
-      <img
-        src="/btclogo.png"
-        alt="BTC"
-        className="floating-logo"
-        style={{ top: "10%", left: "20%", animationDuration: "10s" }}
-      />
-      <img
-        src="/ethlogo.png"
-        alt="ETH"
-        className="floating-logo"
-        style={{ top: "50%", left: "10%", animationDuration: "12s" }}
-      />
-      <img
-        src="/sologo.png"
-        alt="SOL"
-        className="floating-logo"
-        style={{ top: "30%", left: "70%", animationDuration: "14s" }}
-      />
+      {/* 🪐 Multiple Floating Logos */}
+      {floatingLogos.map((logo, i) => (
+        <img
+          key={i}
+          src={logo.src}
+          alt={logo.alt}
+          className="floating-logo pointer-events-none"
+          style={{
+            top: logo.top,
+            left: logo.left,
+            animationDuration: logo.duration,
+            width: logo.size,
+            height: logo.size,
+          }}
+        />
+      ))}
 
       <div
         className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
