@@ -1,7 +1,10 @@
 import { useState } from "react";
-import btclogo from "../assets/btclogo.png";
-import ethlogo from "../assets/ethlogo.png";
-import sologo from "../assets/sologo.png";
+
+const logos = [
+  { src: "/btclogo.png", alt: "BTC" },
+  { src: "/ethlogo.png", alt: "ETH" },
+  { src: "/sologo.png", alt: "SOL" },
+];
 
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
