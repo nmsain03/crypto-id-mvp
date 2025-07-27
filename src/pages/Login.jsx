@@ -1,48 +1,47 @@
 import { useState } from "react";
-
-const logos = [
-  { src: "/btclogo.png", alt: "BTC" },
-  { src: "/ethlogo.png", alt: "ETH" },
-  { src: "/sologo.png", alt: "SOL" },
-];
-
-const floatingLogos = Array.from({ length: 12 }, (_, i) => ({
-  ...logos[i % logos.length],
-  top: `${Math.random() * 90}%`,
-  left: `${Math.random() * 90}%`,
-  duration: `${10 + Math.random() * 10}s`,
-  size: `${40 + Math.random() * 30}px`,
-}));
+import btclogo from "../assets/btclogo.png";
+import ethlogo from "../assets/ethlogo.png";
+import sologo from "../assets/sologo.png";
 
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
 
+  const floatingLogos = [
+    ...Array(6).fill(btclogo),
+    ...Array(6).fill(ethlogo),
+    ...Array(6).fill(sologo),
+  ].sort(() => Math.random() - 0.5); // zufällige Reihenfolge
+
   return (
-    <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans relative overflow-hidden">
-      {/* 🪐 Multiple Floating Logos */}
-      {floatingLogos.map((logo, i) => (
+    <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
+      {/* Schwebende Logos im Hintergrund */}
+      {floatingLogos.map((src, index) => (
         <img
-          key={i}
-          src={logo.src}
-          alt={logo.alt}
-          className="floating-logo pointer-events-none"
+          key={index}
+          src={src}
+          className="floating-logo"
           style={{
-            top: logo.top,
-            left: logo.left,
-            animationDuration: logo.duration,
-            width: logo.size,
-            height: logo.size,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            width: "32px",
+            height: "32px",
+            objectFit: "contain",
+            animationDelay: `${Math.random() * 5}s`,
+            transform: `rotate(${Math.random() * 360}deg)`,
           }}
         />
       ))}
 
+      {/* Login Box */}
       <div
         className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2
-        transition-shadow duration-[250ms] ease-in-out"
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2 z-10"
         style={{
           borderColor: "#fdf6ee",
-          boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
+          boxShadow: isHovered
+            ? "0 0 10px #fdf6ee"
+            : "0 0 0px transparent",
+          transition: "box-shadow 250ms ease-in-out",
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
