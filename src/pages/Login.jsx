@@ -1,7 +1,11 @@
 import { useState, useMemo } from "react";
+import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react";
 
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
+  const connectWithMetamask = useMetamask();
+  const disconnect = useDisconnect();
+  const address = useAddress();
 
   const floatingLogos = useMemo(() => {
     const logos = [
@@ -87,9 +91,25 @@ export default function Login() {
 
         <div className="text-center text-gray-400 text-sm">or</div>
 
-        <button className="bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-md font-medium transition-colors border border-zinc-600">
-          Connect Wallet
-        </button>
+        {/* ✅ Thirdweb Wallet Login */}
+        {!address ? (
+          <button
+            onClick={connectWithMetamask}
+            className="bg-zinc-800 hover:bg-zinc-700 text-white py-2 rounded-md font-medium transition-colors border border-zinc-600"
+          >
+            Connect Wallet
+          </button>
+        ) : (
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-sm text-green-400 break-all text-center">✅ Eingeloggt: {address}</p>
+            <button
+              onClick={disconnect}
+              className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md text-sm"
+            >
+              Logout
+            </button>
+          </div>
+        )}
 
         <p className="text-xs text-gray-400 text-center mt-4">
           Don’t have an account?{" "}
