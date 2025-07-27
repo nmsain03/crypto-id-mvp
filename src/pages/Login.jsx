@@ -9,25 +9,25 @@ const logos = [
 export default function Login() {
   const [isHovered, setIsHovered] = useState(false);
 
-  const floatingLogos = [
-    ...Array(6).fill(btclogo),
-    ...Array(6).fill(ethlogo),
-    ...Array(6).fill(sologo),
-  ].sort(() => Math.random() - 0.5); // zufällige Reihenfolge
+  // Mehrfach zufällig gemischt für mehr Vielfalt
+  const floatingLogos = Array.from({ length: 25 }, () =>
+    logos[Math.floor(Math.random() * logos.length)]
+  );
 
   return (
     <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
-      {/* Schwebende Logos im Hintergrund */}
-      {floatingLogos.map((src, index) => (
+      {/* Hintergrundlogos */}
+      {floatingLogos.map((logo, index) => (
         <img
           key={index}
-          src={src}
-          className="floating-logo"
+          src={logo.src}
+          alt={logo.alt}
+          className="absolute opacity-10 animate-float"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            width: "32px",
-            height: "32px",
+            width: "36px",
+            height: "36px",
             objectFit: "contain",
             animationDelay: `${Math.random() * 5}s`,
             transform: `rotate(${Math.random() * 360}deg)`,
@@ -35,15 +35,13 @@ export default function Login() {
         />
       ))}
 
-      {/* Login Box */}
+      {/* Login-Karte */}
       <div
         className="relative rounded-[0.95rem] p-6 w-full max-w-sm flex flex-col gap-4
         bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2 z-10"
         style={{
           borderColor: "#fdf6ee",
-          boxShadow: isHovered
-            ? "0 0 10px #fdf6ee"
-            : "0 0 0px transparent",
+          boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
           transition: "box-shadow 250ms ease-in-out",
         }}
         onMouseEnter={() => setIsHovered(true)}
