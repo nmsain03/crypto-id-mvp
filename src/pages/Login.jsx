@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 export default function Login() {
   const floatingLogos = useMemo(() => {
     const logos = [
-      { src: "/btclogo.png", alt: "BTC", size: 30 },
-      { src: "/ethlogo.png", alt: "ETH", size: 30 },
-      { src: "/sologo.png", alt: "SOL", size: 40 },
+      { src: "/btclogo.png", alt: "BTC", size: 32 },
+      { src: "/ethlogo.png", alt: "ETH", size: 32 },
+      { src: "/sologo.png", alt: "SOL", size: 42 },
     ];
 
     const combined = [];
@@ -16,7 +16,7 @@ export default function Login() {
         id: i,
         src: logo.src,
         alt: logo.alt,
-        size: logo.size,
+        size: logo.alt === "SOL" ? 42 : 32,
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,
         rotate: `${Math.random() * 360}deg`,
@@ -35,7 +35,7 @@ export default function Login() {
 
   return (
     <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
-      {/* 🪐 Floating Background Logos */}
+      {/* Floating Logos */}
       {floatingLogos.map((logo) => (
         <img
           key={logo.id}
@@ -51,20 +51,20 @@ export default function Login() {
             objectFit: "contain",
             animation: "float 10s linear infinite",
             animationDelay: logo.delay,
-            filter: `drop-shadow(0 0 6px ${logo.glow})`,
             transform: `rotate(${logo.rotate})`,
+            filter: `drop-shadow(0 0 6px ${logo.glow})`,
             opacity: 0.5,
           }}
         />
       ))}
 
-      {/* 🧩 Your Login Box (unchanged) */}
-      <div className="z-10 bg-zinc-800 rounded-xl p-6 shadow-md border border-white/10 max-w-sm w-full">
-        <h2 className="text-lg font-semibold mb-4 text-center">Log in to Cryptfie</h2>
+      {/* Login Box */}
+      <div className="relative z-10 bg-zinc-800 rounded-xl p-8 shadow-lg border border-white/20">
+        <h2 className="text-xl font-bold mb-4 text-center">Log in to Cryptfie</h2>
         <input
           type="email"
           placeholder="Email address"
-          className="w-full p-2 rounded mb-3 bg-zinc-900 border border-gray-700 text-white"
+          className="w-full p-2 rounded mb-4 bg-zinc-900 border border-gray-700 text-white"
         />
         <button className="w-full p-2 bg-blue-600 hover:bg-blue-700 rounded text-white mb-2">
           Log in with Email
