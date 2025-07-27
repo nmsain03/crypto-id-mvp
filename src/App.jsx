@@ -10,3 +10,13 @@ export default function App() {
     </Routes>
   );
 }
+
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+
+function App() {
+  return (
+    <ThirdwebProvider activeChain="ethereum">
+      {/* dein Layout oder Routes */}
+    </ThirdwebProvider>
+  );
+}
