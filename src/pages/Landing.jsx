@@ -25,7 +25,7 @@ export default function Landing() {
 
   return (
     <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
-      {/* Hintergrundlogos */}
+      {/* 👇 Floating Hintergrundlogos */}
       {floatingLogos.map(({ src, alt, left, top, rotate, delay, size }, index) => {
         const colorGlow = {
           BTC: "rgba(247, 147, 26, 0.3)",
@@ -56,7 +56,14 @@ export default function Landing() {
         );
       })}
 
-      {/* Inhalt */}
+      {/* 👇 Logo oben zentriert */}
+      <img
+        src="/cryptfielogo.png"
+        alt="Cryptfie Logo"
+        className="absolute top-6 left-1/2 transform -translate-x-1/2 w-12 md:w-16"
+      />
+
+      {/* 👇 Inhalt */}
       <div className="relative z-10 text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-2">Welcome to Cryptfie</h1>
         <p className="text-sm md:text-base text-gray-400 mb-6">
