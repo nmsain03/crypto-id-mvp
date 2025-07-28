@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+// Landing.jsx
+import { useMemo } from "react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function Landing() {
-  const [isHovered, setIsHovered] = useState(false);
-
   const floatingLogos = useMemo(() => {
     const logos = [
       { src: "/btclogo.png", alt: "BTC", size: 32 },
@@ -11,21 +10,23 @@ export default function Landing() {
       { src: "/sologo.png", alt: "SOL", size: 42 },
     ];
 
-    return Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      ...logos[Math.floor(Math.random() * logos.length)],
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      rotate: `${Math.random() * 360}deg`,
-      delay: `${Math.random() * 5}s`,
-    }));
+    return Array.from({ length: 50 }, (_, i) => {
+      const logo = logos[Math.floor(Math.random() * logos.length)];
+      return {
+        id: i,
+        ...logo,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        rotate: `${Math.random() * 360}deg`,
+        delay: `${Math.random() * 5}s`,
+      };
+    });
   }, []);
 
   return (
-    <div className="relative bg-zinc-900 min-h-screen flex flex-col justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
-      {/* Floating Background Logos */}
-      {floatingLogos.map(({ src, alt }, index) => {
-        const size = alt === "SOL" ? 40 : 30;
+    <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
+      {/* Hintergrundlogos */}
+      {floatingLogos.map(({ src, alt, left, top, rotate, delay, size }, index) => {
         const colorGlow = {
           BTC: "rgba(247, 147, 26, 0.3)",
           ETH: "rgba(59, 130, 246, 0.3)",
@@ -40,41 +41,33 @@ export default function Landing() {
             className="floating-logo pointer-events-none"
             style={{
               position: "absolute",
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left,
+              top,
               width: `${size}px`,
               height: `${size}px`,
               objectFit: "contain",
               animation: "float 10s linear infinite",
-              animationDelay: `${Math.random() * 5}s`,
+              animationDelay: delay,
               filter: `drop-shadow(0 0 6px ${colorGlow})`,
-              transform: `rotate(${Math.random() * 360}deg)`,
+              transform: `rotate(${rotate})`,
               opacity: 0.5,
             }}
           />
         );
       })}
 
-      {/* Main Content */}
-      <div className="relative z-10 text-center space-y-4">
-        <h1 className="text-2xl font-bold">Welcome to Cryptfie</h1>
-        <p className="text-sm text-zinc-400">
+      {/* Inhalt */}
+      <div className="relative z-10 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Welcome to Cryptfie</h1>
+        <p className="text-sm md:text-base text-gray-400 mb-6">
           One alias. All your crypto wallets. Search or connect to get started.
         </p>
-
         <input
           type="text"
           placeholder="Search @alias or wallet address"
-          className="px-4 py-2 w-72 rounded-md bg-zinc-900 text-white border border-zinc-700 focus:outline-none transition-all"
-          style={{
-            borderColor: isHovered ? "#fdf6ee" : "#3f3f46",
-            boxShadow: isHovered ? "0 0 8px #fdf6ee" : "none",
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className="bg-zinc-900 text-white border border-zinc-700 px-6 py-3 rounded-md focus:outline-none transition-all focus:ring-2 focus:ring-[#fdf6ee] hover:ring-2 hover:ring-[#fdf6ee] text-base md:text-lg"
         />
-
-        <div className="flex justify-center">
+        <div className="mt-4">
           <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
         </div>
       </div>
