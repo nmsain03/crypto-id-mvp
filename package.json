@@ -7,15 +7,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-qr-code": "^2.0.7",
-    "react-router-dom": "^7.7.1",
     "@thirdweb-dev/auth": "^4.1.97",
     "@thirdweb-dev/react": "^4.9.4",
     "@thirdweb-dev/sdk": "^4.0.99",
-    "ethers": "^5.8.0"
+    "@vitejs/plugin-react": "^4.0.0",
+    "ethers": "^5.8.0",
+    "lucide-react": "^0.532.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.7",
+    "react-router-dom": "^7.7.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
