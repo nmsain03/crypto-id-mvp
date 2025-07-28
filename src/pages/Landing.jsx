@@ -1,5 +1,5 @@
 // Landing.jsx
-import { useMemo } from "react";https://github.com/nmsain03/crypto-id-mvp/blob/main/src/pages/Landing.jsx
+import { useMemo } from "react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function Landing() {
@@ -62,21 +62,15 @@ export default function Landing() {
         <p className="text-sm md:text-base text-gray-400 mb-6">
           One Link. All your crypto adresses. Connect to get started.
         </p>
-        <input
-          type="text"
-          placeholder="Search @alias"
-          className="bg-zinc-900 text-white border border-zinc-700 px-6 py-3 rounded-md focus:outline-none transition-all focus:ring-2 focus:ring-[#fdf6ee] hover:ring-2 hover:ring-[#fdf6ee] text-base md:text-lg"
-        />
-        <div className="mt-4">
-          <ConnectWallet
+
+        <ConnectWallet
           theme="dark"
           btnTitle="Connect Wallet"
           modalTitle="Connect Wallet"
           modalSize="wide"
           modalTitleIconUrl=""
           className="z-10"
-  />
-        </div>
+        />
       </div>
     </div>
   );
