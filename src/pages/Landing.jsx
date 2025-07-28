@@ -64,7 +64,7 @@ export default function Landing() {
         </p>
         <input
           type="text"
-          placeholder="Search @alias or wallet address"
+          placeholder="Search @alias"
           className="bg-zinc-900 text-white border border-zinc-700 px-6 py-3 rounded-md focus:outline-none transition-all focus:ring-2 focus:ring-[#fdf6ee] hover:ring-2 hover:ring-[#fdf6ee] text-base md:text-lg"
         />
         <div className="mt-4">
