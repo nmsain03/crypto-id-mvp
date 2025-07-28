@@ -7,6 +7,11 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* ✅ Prevent layout shift when overflow is hidden (wallet modal fix) */
+body {
+  padding-right: 0 !important;
+}
+
 img {
   @apply mx-auto;
 }
@@ -43,4 +48,3 @@ img {
 .floating-logo {
   animation: float 6s ease-in-out infinite;
 }
-
