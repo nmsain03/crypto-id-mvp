@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login.jsx";
+import Landing from "./pages/Landing.jsx"; // ✅ NEU!
 import PublicProfile from "./pages/PublicProfile.jsx";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 
@@ -7,8 +7,8 @@ export default function App() {
   return (
     <ThirdwebProvider activeChain="ethereum">
       <Routes>
-        <Route path="/" element={<PublicProfile />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Landing />} /> {/* Landing Page als Start */}
+        <Route path="/profile/:alias" element={<PublicProfile />} /> {/* Falls du sowas brauchst */}
       </Routes>
     </ThirdwebProvider>
   );
