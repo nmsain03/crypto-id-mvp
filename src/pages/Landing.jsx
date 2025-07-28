@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { ConnectWallet, ThirdwebProvider } from "@thirdweb-dev/react";
-import PublicProfile from "./pages/PublicProfile.jsx";
+import PublicProfile from "../pages/PublicProfile.jsx";
 
 function Landing() {
   const [search, setSearch] = useState("");
