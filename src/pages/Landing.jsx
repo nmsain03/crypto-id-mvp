@@ -25,11 +25,11 @@ export default function Landing() {
 
   return (
     <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
-      {/* 👇 Logo oben links */}
+      {/* 👇 Logo oben links – doppelte Größe */}
       <img
-        src="/cryptfielogo.png"
+        src="/logo.png"
         alt="Cryptfie Logo"
-        className="absolute top-6 left-6 w-10 md:w-12 z-20"
+        className="absolute top-6 left-6 w-20 md:w-24 z-20"
       />
 
       {/* Hintergrundlogos */}
