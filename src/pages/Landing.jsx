@@ -1,5 +1,5 @@
 // Landing.jsx
-import { useMemo } from "react";
+import { useMemo } from "react";https://github.com/nmsain03/crypto-id-mvp/blob/main/src/pages/Landing.jsx
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function Landing() {
