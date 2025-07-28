@@ -48,3 +48,9 @@ img {
 .floating-logo {
   animation: float 6s ease-in-out infinite;
 }
+
+/* 👇 Disables vertical and horizontal scroll */
+body, html {
+  overflow: hidden;
+}
+
