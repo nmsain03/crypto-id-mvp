@@ -1,14 +1,19 @@
-import { useMemo } from "react";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useMemo } from "react";
+import { ConnectWallet, ThirdwebProvider } from "@thirdweb-dev/react";
+import PublicProfile from "./pages/PublicProfile.jsx";
 
-export default function Landing() {
+function Landing() {
+  const [search, setSearch] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+
   const floatingLogos = useMemo(() => {
     const logos = [
       { src: "/btclogo.png", alt: "BTC", size: 32 },
       { src: "/ethlogo.png", alt: "ETH", size: 32 },
       { src: "/sologo.png", alt: "SOL", size: 42 },
     ];
-
     return Array.from({ length: 50 }, (_, i) => ({
       id: i,
       ...logos[Math.floor(Math.random() * logos.length)],
@@ -19,10 +24,15 @@ export default function Landing() {
     }));
   }, []);
 
+  const handleSearch = (e) => {
+    if (e.key === "Enter" && search.trim() !== "") {
+      navigate(`/profile/${search.trim()}`);
+    }
+  };
+
   return (
-    <div className="relative bg-zinc-900 min-h-screen flex flex-col items-center justify-center px-4 py-10 text-white font-sans overflow-hidden">
-      {/* 🔮 Floating Logos */}
-      {floatingLogos.map(({ src, alt, left, top, rotate, delay }, index) => {
+    <div className="relative bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans overflow-hidden">
+      {floatingLogos.map(({ src, alt }, index) => {
         const size = alt === "SOL" ? 40 : 30;
         const colorGlow = {
           BTC: "rgba(247, 147, 26, 0.3)",
@@ -38,41 +48,56 @@ export default function Landing() {
             className="floating-logo pointer-events-none"
             style={{
               position: "absolute",
-              left,
-              top,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
               width: `${size}px`,
               height: `${size}px`,
               objectFit: "contain",
               animation: "float 10s linear infinite",
-              animationDelay: delay,
+              animationDelay: `${Math.random() * 5}s`,
               filter: `drop-shadow(0 0 6px ${colorGlow})`,
-              transform: `rotate(${rotate})`,
-              opacity: 0.5,
+              transform: `rotate(${Math.random() * 360}deg)`
             }}
           />
         );
       })}
 
-      {/* 🌐 Landing Content */}
-      <div className="z-10 text-center max-w-2xl w-full">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Cryptfie</h1>
-        <p className="text-zinc-300 mb-6">
-          One alias. All your crypto wallets. Search or connect to get started.
-        </p>
+      <div
+        className="relative rounded-[0.95rem] p-6 w-full max-w-md flex flex-col gap-6
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden border-2 z-10"
+        style={{
+          borderColor: "#fdf6ee",
+          boxShadow: isHovered ? "0 0 10px #fdf6ee" : "0 0 0px transparent",
+          transition: "box-shadow 250ms ease-in-out",
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <h1 className="text-2xl font-bold text-center">Search Profiles</h1>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleSearch}
+          placeholder="Enter @alias..."
+          className="bg-zinc-900 text-white border border-zinc-700 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#fdf6ee] transition-shadow"
+        />
 
-        {/* 🔍 Search Field */}
-        <div className="flex justify-center mb-6">
-          <input
-            type="text"
-            placeholder="Search @alias or wallet address"
-            className="w-full max-w-md px-4 py-3 rounded-md bg-zinc-800 border border-zinc-700 text-white focus:outline-none focus:ring-2 focus:ring-[#fdf6ee]"
-          />
+        <div className="flex justify-center">
+          <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
         </div>
-
-        {/* 🦊 Wallet Connect */}
-        <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
       </div>
     </div>
   );
 }
 
+export default function App() {
+  return (
+    <ThirdwebProvider activeChain="ethereum">
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/profile/:alias" element={<PublicProfile />} />
+      </Routes>
+    </ThirdwebProvider>
+  );
+}
