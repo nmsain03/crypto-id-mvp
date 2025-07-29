@@ -5,43 +5,12 @@ import QRCode from "react-qr-code";
 const chains = ["Ethereum", "Bitcoin", "Solana"];
 
 function WalletCard({ chain, address, onRemove }) {
-  const backgroundImages = {
-    Bitcoin: "/btc.png",
-    Ethereum: "/eth.png",
-    Solana: "/sol.png",
-  };
-
-  const borderColors = {
-    Ethereum: "#3b82f6",
-    Bitcoin: "#f7931a",
-    Solana: "#00ffa3",
-  };
-
-  const pattern = backgroundImages[chain] || "";
-  const shadowColor = borderColors[chain];
-
   return (
     <div
       className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
-        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
-        transition-shadow duration-250 ease-in-out border-2"
-      style={{
-        borderColor: shadowColor,
-        boxShadow: `0 0 10px ${shadowColor}`,
-      }}
+        bg-zinc-800/60 backdrop-blur-md ring-1 ring-white/10 overflow-hidden
+        border-2 border-dashed border-gray-400"
     >
-      {pattern && (
-        <div
-          className="absolute inset-0 z-0 opacity-10 bg-repeat"
-          style={{
-            backgroundImage: `url(${pattern})`,
-            backgroundSize: chain === "Solana" ? "400px 400px" : "300px 300px",
-            animation: "scroll-diagonal 30s linear infinite",
-            filter: "blur(4px)",
-          }}
-        />
-      )}
-
       <div className="flex flex-col justify-center relative z-10">
         <p className="font-medium text-[#fdf6ee]">{chain}</p>
         <p className="text-xs break-all text-gray-300">{address}</p>
@@ -69,7 +38,7 @@ function EmptyWalletCard({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="relative rounded-[0.95rem] h-32 w-full border-2 border-green-400 border-dashed flex items-center justify-center text-green-400 text-xl font-semibold hover:bg-green-400/10 transition"
+      className="relative rounded-[0.95rem] h-32 w-full border-2 border-dashed border-green-400 flex items-center justify-center text-green-400 text-xl font-semibold hover:bg-green-400/10 transition"
     >
       ➕ Add Wallet
     </button>
@@ -105,11 +74,16 @@ export default function Dashboard() {
           type="text"
           value={alias}
           onChange={(e) => setAlias(e.target.value)}
-          className="bg-zinc-800 p-2 rounded mt-2 text-white w-full text-center"
-          placeholder="Edit alias"
+          className="bg-zinc-800 p-2 rounded text-white w-full text-center"
+          placeholder="cryptqueen"
         />
 
-        <div className="w-full space-y-4 mt-6">
+        <textarea
+          className="bg-zinc-800 p-2 rounded text-white w-full text-sm text-center"
+          placeholder="Add a short bio or description..."
+        ></textarea>
+
+        <div className="w-full space-y-4 mt-4">
           {wallets.map((w, idx) => (
             <WalletCard
               key={idx}
@@ -121,7 +95,7 @@ export default function Dashboard() {
           <EmptyWalletCard onClick={() => setAddingIndex(wallets.length)} />
 
           {addingIndex === wallets.length && (
-            <div className="bg-zinc-800 p-4 rounded-xl space-y-2">
+            <div className="bg-zinc-800 p-4 rounded-xl space-y-2 border border-dashed border-gray-500">
               <select
                 value={newChain}
                 onChange={(e) => setNewChain(e.target.value)}
