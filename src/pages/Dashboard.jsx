@@ -51,33 +51,35 @@ function WalletCard({ chain, address }) {
       )}
 
       <div className="flex flex-col justify-center relative z-10">
-        <p className="font-medium text-[#fdf6ee]">{chain}</p>
-        <p className="text-xs break-all text-gray-300">{address}</p>
-        <button
-          className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
-          onClick={handleCopy}
-          style={{
-            color: shadowColor,
-            textShadow: copied ? `0 0 6px ${shadowColor}` : "none",
-          }}
-          onMouseEnter={(e) => {
-            if (!copied) e.target.style.textShadow = `0 0 6px ${shadowColor}`;
-          }}
-          onMouseLeave={(e) => {
-            if (!copied) e.target.style.textShadow = "none";
-          }}
-        >
-          {copied ? "Copied!" : "Copy address"}
-        </button>
+        <p className="font-medium text-[#fdf6ee]">{chain || "Choose Chain"}</p>
+        <p className="text-xs break-all text-gray-300">{address || "No address yet"}</p>
+        {address && (
+          <button
+            className="mt-2 text-xs transition-all duration-200 inline w-fit leading-none"
+            onClick={handleCopy}
+            style={{
+              color: shadowColor,
+              textShadow: copied ? `0 0 6px ${shadowColor}` : "none",
+            }}
+            onMouseEnter={(e) => {
+              if (!copied) e.target.style.textShadow = `0 0 6px ${shadowColor}`;
+            }}
+            onMouseLeave={(e) => {
+              if (!copied) e.target.style.textShadow = "none";
+            }}
+          >
+            {copied ? "Copied!" : "Copy address"}
+          </button>
+        )}
       </div>
 
       <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20 relative z-10">
-        <QRCode
+        {address && <QRCode
           value={address}
           style={{ height: "64px", width: "64px" }}
           bgColor="#000000"
           fgColor="#ffffff"
-        />
+        />}
       </div>
     </div>
   );
@@ -105,49 +107,59 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="bg-zinc-900 min-h-screen flex flex-col items-center px-4 py-8 text-white font-sans">
-      <h1 className="text-2xl font-semibold mb-2">Hi [alias]!</h1>
-      <div className="mb-4 flex gap-4">
-        <button className="underline">🔁 Alias bearbeiten</button>
-        <button className="underline">🖼 Profilbild hochladen</button>
+    <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
+      <div className="w-full max-w-md flex flex-col items-center gap-4">
+        <img
+          src="/profile.jpg"
+          alt="Profile"
+          className="w-24 h-24 rounded-full border border-[#fdf6ee] object-cover shadow-[0_0_8px_#fdf6ee]"
+        />
+        <h1 className="text-2xl font-semibold text-white">Hi [alias]!</h1>
+        <div className="mb-2 flex gap-4 text-sm">
+          <button className="underline">🔁 Alias bearbeiten</button>
+          <button className="underline">🖼 Profilbild hochladen</button>
+        </div>
+        <div className="w-full space-y-4 mt-4">
+          {wallets.map((w, i) => (
+            <div key={i}>
+              <WalletCard chain={w.chain} address={w.address} />
+              <div className="mt-2">
+                <select
+                  className="w-full bg-zinc-900 border border-gray-600 rounded-md px-2 py-1 text-white mb-1"
+                  value={w.chain}
+                  onChange={(e) => updateWallet(i, "chain", e.target.value)}
+                >
+                  <option value="">Choose Chain</option>
+                  <option value="Ethereum">Ethereum</option>
+                  <option value="Bitcoin">Bitcoin</option>
+                  <option value="Solana">Solana</option>
+                </select>
+                <input
+                  className="w-full bg-zinc-900 border border-gray-600 rounded-md px-2 py-1 text-white"
+                  placeholder="Enter address"
+                  value={w.address}
+                  onChange={(e) => updateWallet(i, "address", e.target.value)}
+                />
+                <button
+                  className="text-sm text-red-400 underline mt-1"
+                  onClick={() => handleRemoveWallet(i)}
+                >
+                  🗑 Wallet entfernen
+                </button>
+              </div>
+            </div>
+          ))}
+          <button
+            className="text-green-400 underline text-sm mt-4"
+            onClick={handleAddWallet}
+          >
+            ➕ Wallet hinzufügen (Chain + Adresse)
+          </button>
+        </div>
+        <p className="mt-8 text-center text-sm text-gray-500">
+          Vorschau-Link: cryptfie.com/@alias
+        </p>
       </div>
-      <div className="w-full max-w-md space-y-4">
-        {wallets.map((w, i) => (
-          <div key={i} className="bg-zinc-800/20 p-4 rounded-xl flex flex-col gap-2">
-            <select
-              className="bg-zinc-900 border border-gray-600 rounded-md px-2 py-1 text-white"
-              value={w.chain}
-              onChange={(e) => updateWallet(i, "chain", e.target.value)}
-            >
-              <option value="">Choose Chain</option>
-              <option value="Ethereum">Ethereum</option>
-              <option value="Bitcoin">Bitcoin</option>
-              <option value="Solana">Solana</option>
-            </select>
-            <input
-              className="bg-zinc-900 border border-gray-600 rounded-md px-2 py-1 text-white"
-              placeholder="Enter address"
-              value={w.address}
-              onChange={(e) => updateWallet(i, "address", e.target.value)}
-            />
-            <button
-              className="text-sm text-red-400 underline self-end"
-              onClick={() => handleRemoveWallet(i)}
-            >
-              🗑 Wallet entfernen
-            </button>
-          </div>
-        ))}
-        <button
-          className="text-green-400 underline text-sm mt-4"
-          onClick={handleAddWallet}
-        >
-          ➕ Wallet hinzufügen (Chain + Adresse)
-        </button>
-      </div>
-      <p className="mt-8 text-center text-sm text-gray-500">
-        Vorschau-Link: cryptfie.com/@alias
-      </p>
     </div>
   );
 }
