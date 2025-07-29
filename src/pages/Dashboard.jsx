@@ -27,6 +27,7 @@ function WalletCard({ chain, address, onRemove }) {
         transition-shadow duration-250 ease-in-out border-2"
       style={{
         borderColor: shadowColor,
+        boxShadow: `0 0 10px ${shadowColor}`,
       }}
     >
       {pattern && (
@@ -64,16 +65,29 @@ function WalletCard({ chain, address, onRemove }) {
   );
 }
 
+function EmptyWalletCard({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative rounded-[0.95rem] h-32 w-full border-2 border-green-400 border-dashed flex items-center justify-center text-green-400 text-xl font-semibold hover:bg-green-400/10 transition"
+    >
+      ➕ Add Wallet
+    </button>
+  );
+}
+
 export default function Dashboard() {
   const [alias, setAlias] = useState("cryptqueen");
   const [wallets, setWallets] = useState([]);
   const [newChain, setNewChain] = useState("Ethereum");
   const [newAddress, setNewAddress] = useState("");
+  const [addingIndex, setAddingIndex] = useState(null);
 
   const handleAdd = () => {
-    if (!newAddress) return;
+    if (!newAddress || !newChain) return;
     setWallets([...wallets, { chain: newChain, address: newAddress }]);
     setNewAddress("");
+    setAddingIndex(null);
   };
 
   const handleRemove = (idx) => {
@@ -104,7 +118,9 @@ export default function Dashboard() {
             />
           ))}
 
-          {wallets.length < 3 || wallets.length % 3 === 0 ? (
+          <EmptyWalletCard onClick={() => setAddingIndex(wallets.length)} />
+
+          {addingIndex === wallets.length && (
             <div className="bg-zinc-800 p-4 rounded-xl space-y-2">
               <select
                 value={newChain}
@@ -123,12 +139,12 @@ export default function Dashboard() {
               />
               <button
                 onClick={handleAdd}
-                className="w-full p-2 bg-white text-black rounded hover:bg-gray-200"
+                className="w-full p-2 bg-green-400 text-black rounded hover:bg-green-300"
               >
-                ➕ Add Wallet
+                ✅ Confirm
               </button>
             </div>
-          ) : null}
+          )}
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-500">
