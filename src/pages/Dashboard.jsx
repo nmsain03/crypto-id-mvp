@@ -1,20 +1,14 @@
+// src/pages/Dashboard.jsx
 import { useState } from "react";
-import { Copy } from "lucide-react";
+import QRCode from "react-qr-code";
 
-export default function Dashboard() {
-  const [wallets, setWallets] = useState([
-    { chain: "Bitcoin", address: "bc1qexampleaddress1234" },
-    { chain: "Ethereum", address: "0xexampleaddress5678" },
-    { chain: "Solana", address: "solanaExampleAddress" },
-  ]);
+const chains = ["Ethereum", "Bitcoin", "Solana"];
 
-  const user = {
-    alias: "@cryptqueen",
-    bio: "Building the future of crypto identity.",
-    socials: {
-      twitter: "https://twitter.com/yourhandle",
-      website: "https://cryptfie.com",
-    },
+function WalletCard({ chain, address, onRemove }) {
+  const backgroundImages = {
+    Bitcoin: "/btc.png",
+    Ethereum: "/eth.png",
+    Solana: "/sol.png",
   };
 
   const borderColors = {
@@ -23,58 +17,124 @@ export default function Dashboard() {
     Solana: "#00ffa3",
   };
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
+  const pattern = backgroundImages[chain] || "";
+  const shadowColor = borderColors[chain];
+
+  return (
+    <div
+      className="relative rounded-[0.95rem] p-4 flex justify-between items-center h-32
+        bg-zinc-800/30 backdrop-blur-md shadow-inner ring-1 ring-white/5 overflow-hidden
+        transition-shadow duration-250 ease-in-out border-2"
+      style={{
+        borderColor: shadowColor,
+      }}
+    >
+      {pattern && (
+        <div
+          className="absolute inset-0 z-0 opacity-10 bg-repeat"
+          style={{
+            backgroundImage: `url(${pattern})`,
+            backgroundSize: chain === "Solana" ? "400px 400px" : "300px 300px",
+            animation: "scroll-diagonal 30s linear infinite",
+            filter: "blur(4px)",
+          }}
+        />
+      )}
+
+      <div className="flex flex-col justify-center relative z-10">
+        <p className="font-medium text-[#fdf6ee]">{chain}</p>
+        <p className="text-xs break-all text-gray-300">{address}</p>
+        <button
+          className="mt-2 text-xs text-red-400 hover:text-red-200"
+          onClick={onRemove}
+        >
+          Remove
+        </button>
+      </div>
+
+      <div className="bg-black p-2 rounded-md flex items-center justify-center h-20 w-20 relative z-10">
+        <QRCode
+          value={address}
+          style={{ height: "64px", width: "64px" }}
+          bgColor="#000000"
+          fgColor="#ffffff"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function Dashboard() {
+  const [alias, setAlias] = useState("cryptqueen");
+  const [wallets, setWallets] = useState([]);
+  const [newChain, setNewChain] = useState("Ethereum");
+  const [newAddress, setNewAddress] = useState("");
+
+  const handleAdd = () => {
+    if (!newAddress) return;
+    setWallets([...wallets, { chain: newChain, address: newAddress }]);
+    setNewAddress("");
+  };
+
+  const handleRemove = (idx) => {
+    const newList = [...wallets];
+    newList.splice(idx, 1);
+    setWallets(newList);
   };
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-black text-white font-sans">
-      {/* Header */}
-      <header className="mb-8 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Welcome, {user.alias}</h1>
-        <div className="w-10 h-10 bg-gray-800 rounded-full" />
-      </header>
+    <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-8 text-white font-sans">
+      <div className="w-full max-w-md flex flex-col items-center gap-4">
+        <h1 className="text-2xl font-bold">Hi @{alias}!</h1>
 
-      {/* Profilbereich */}
-      <section className="mb-10 p-6 bg-white/5 rounded-2xl backdrop-blur border border-white/10">
-        <h2 className="text-xl font-semibold mb-4">Profil</h2>
-        <p><span className="font-medium text-gray-400">Alias:</span> {user.alias}</p>
-        <p><span className="font-medium text-gray-400">Bio:</span> {user.bio}</p>
-        <p><span className="font-medium text-gray-400">Links:</span> 
-          <a href={user.socials.twitter} className="text-blue-400 hover:underline ml-1" target="_blank" rel="noopener noreferrer">Twitter</a>, 
-          <a href={user.socials.website} className="text-blue-400 hover:underline ml-1" target="_blank" rel="noopener noreferrer">Website</a>
-        </p>
-      </section>
+        <input
+          type="text"
+          value={alias}
+          onChange={(e) => setAlias(e.target.value)}
+          className="bg-zinc-800 p-2 rounded mt-2 text-white w-full text-center"
+          placeholder="Edit alias"
+        />
 
-      {/* Wallet Cards */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Deine Wallets</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {wallets.map((wallet, idx) => (
-            <div
+        <div className="w-full space-y-4 mt-6">
+          {wallets.map((w, idx) => (
+            <WalletCard
               key={idx}
-              className="p-4 rounded-2xl border relative bg-white/5 backdrop-blur border-white/10"
-              style={{ borderColor: borderColors[wallet.chain] }}
-            >
-              <div className="mb-2 text-lg font-medium">{wallet.chain}</div>
-              <div className="text-sm break-all">{wallet.address}</div>
-              <button
-                onClick={() => copyToClipboard(wallet.address)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white"
+              {...w}
+              onRemove={() => handleRemove(idx)}
+            />
+          ))}
+
+          {wallets.length < 3 || wallets.length % 3 === 0 ? (
+            <div className="bg-zinc-800 p-4 rounded-xl space-y-2">
+              <select
+                value={newChain}
+                onChange={(e) => setNewChain(e.target.value)}
+                className="bg-zinc-700 text-white w-full p-2 rounded"
               >
-                <Copy size={16} />
+                {chains.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+              <input
+                value={newAddress}
+                onChange={(e) => setNewAddress(e.target.value)}
+                placeholder="Enter wallet address"
+                className="bg-zinc-700 text-white w-full p-2 rounded"
+              />
+              <button
+                onClick={handleAdd}
+                className="w-full p-2 bg-white text-black rounded hover:bg-gray-200"
+              >
+                ➕ Add Wallet
               </button>
             </div>
-          ))}
+          ) : null}
         </div>
 
-        {/* Wallet hinzufügen */}
-        <div className="mt-6">
-          <button className="px-4 py-2 rounded-xl bg-turquoise-500 text-black font-semibold hover:bg-turquoise-400 transition">
-            ➕ Wallet hinzufügen
-          </button>
-        </div>
-      </section>
+        <p className="mt-8 text-center text-xs text-gray-500">
+          Preview: cryptfie.com/@{alias}
+        </p>
+      </div>
     </div>
   );
 }
