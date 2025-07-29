@@ -91,7 +91,11 @@ function WalletCard({ chain, address }) {
 
 
 
-export default function App() {
+import { useParams } from "react-router-dom"; // ⬅️ Add this at the top
+
+export default function PublicProfile() {
+  const { alias } = useParams();
+
   const [wallets] = useState([
     { chain: "Ethereum", address: "0x1234...abcd" },
     { chain: "Solana", address: "So1anaAddre5sHere" },
@@ -106,7 +110,7 @@ export default function App() {
           alt="Profile"
           className="w-24 h-24 rounded-full border border-[#fdf6ee] object-cover shadow-[0_0_8px_#fdf6ee]"
         />
-        <h1 className="text-2xl font-semibold text-white">@polina</h1>
+        <h1 className="text-2xl font-semibold text-white">@{alias}</h1>
         <p className="text-sm text-gray-400 text-center">
           The Real Pink | Accepting crypto donations 💸
         </p>
